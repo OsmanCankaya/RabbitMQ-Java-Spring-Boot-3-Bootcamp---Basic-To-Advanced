@@ -1,0 +1,14 @@
+# Access rabbitmq docker (run this command from regular terminal, outside rabbitmq docker)
+docker exec -it rabbitmq bash
+
+
+# Find plugin directories (from inside rabbitmq docker)
+rabbitmq-plugins directories -s
+
+
+# Copy plugin from drive to docker (run this command from regular terminal, outside rabbitmq docker)
+docker cp /path/to/rabbitmq_delayed_message_exchange-3.x.0.ez rabbitmq:/opt/rabbitmq/plugins
+
+
+# Restart docker rabbitmq (run this command from regular terminal, outside rabbitmq docker)
+docker restart rabbitmq
