@@ -1,0 +1,5110 @@
+{
+	"info": {
+		"_postman_id": "bec83c26-8399-4c5a-b5c5-a499a9ca380f",
+		"name": "Course - RabbitMQ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3610568"
+	},
+	"item": [
+		{
+			"name": "Create RabbitMQ Structures",
+			"item": [
+				{
+					"name": "Retry (Direct)",
+					"item": [
+						{
+							"name": "Create Work Exchange",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Wait Exchange",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Dead Exchange",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Work Queue (image)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n   \"auto_delete\":false,\r\n   \"durable\":true,\r\n   \"arguments\":{  \r\n    \"x-dead-letter-exchange\": \"x.guideline.wait\"\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Work Queue (vector)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \r\n   \"auto_delete\":false,\r\n   \"durable\":true,\r\n   \"arguments\":{  \r\n    \"x-dead-letter-exchange\": \"x.guideline.wait\"\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline.vector.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Wait Queue (vector)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.guideline.work\",\r\n        \"x-message-ttl\": 30000\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline.vector.wait"
+										}
+									]
+								},
+								"description": "Choose between 06A or 06B"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Wait Queue (image)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.guideline.work\",\r\n        \"x-message-ttl\": 30000\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.wait"
+										}
+									]
+								},
+								"description": "Choose between 06A or 06B"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Dead Queue (image)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Dead Queue (vector)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline.vector.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Work Exchange & Queue (jpg)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Work Exchange & Queue (png)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Work Exchange & Queue (svg)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"svg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.vector.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Wait Exchange & Queue (jpg)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.wait"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Wait Exchange & Queue (png)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.wait"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Wait Exchange & Queue (svg)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"svg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.wait"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.vector.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Dead Exchange & Queue (jpg)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Dead Exchange & Queue (png)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.image.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Dead Exchange & Queue (svg)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"svg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline.vector.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Retry (Fanout)",
+					"item": [
+						{
+							"name": "Create Work Exchange",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Wait Exchange",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Dead Exchange",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Retry Exchange",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.retry"
+										}
+									]
+								},
+								"description": "[OPTIONAL] Only use this exchange if work exchange type is FANOUT. If you use DIRECT for work exchange, retry exchange is not required (work exchange = retry exchange)"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Work Queue (accounting)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.guideline2.wait\",\r\n        \"x-dead-letter-routing-key\": \"accounting\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline2.accounting.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Work Queue (marketing)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.guideline2.wait\",\r\n        \"x-dead-letter-routing-key\": \"marketing\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline2.marketing.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Wait Queue (accounting)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.guideline2.retry\",\r\n        \"x-dead-letter-routing-key\": \"accounting\",\r\n        \"x-message-ttl\": 30000\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline2.accounting.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Wait Queue (marketing)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.guideline2.retry\",\r\n        \"x-dead-letter-routing-key\": \"marketing\",\r\n        \"x-message-ttl\": 30000\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline2.marketing.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Dead Queue (accounting)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-queue-mode\": \"lazy\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline2.accounting.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Dead Queue (marketing)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-queue-mode\": \"lazy\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.guideline2.marketing.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Work Exchange & Queue (accounting)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline2.accounting.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Work Exchange & Queue (marketing)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline2.marketing.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Wait Exchange & Queue (accounting)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"accounting\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.wait"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline2.accounting.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Wait Exchange & Queue (marketing)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"marketing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.wait"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline2.marketing.wait"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Dead Exchange & Queue (accounting)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"accounting\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline2.accounting.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Dead Exchange & Queue (marketing)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"marketing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline2.marketing.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Retry Exchange & Work Queue (accounting)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"accounting\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.retry"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline2.accounting.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bind Retry Exchange & Work Queue (marketing)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"marketing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.guideline2.retry"
+										},
+										{
+											"key": "queueName",
+											"value": "q.guideline2.marketing.work"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Retry Spring (Direct)",
+					"item": [
+						{
+							"name": "Exchange : x.spring.work",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Exchange : x.spring.dead",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Queue : q.spring.image.work",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.spring.dead\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.spring.image.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Queue : q.spring.vector.work",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.spring.dead\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.spring.vector.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Queue : q.spring.image.dead",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.spring.image.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Queue : q.spring.vector.dead",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.spring.vector.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : work 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring.image.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : work 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring.image.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : work 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"svg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring.vector.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : dead 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring.image.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : dead 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"png\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring.image.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : dead 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"svg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring.vector.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Retry Spring (Fanout)",
+					"item": [
+						{
+							"name": "Exchange : x.spring2.work",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring2.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Exchange : x.spring2.dead",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"exchanges",
+										"{{rabbitmqVirtualHost}}",
+										":exchangeName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring2.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Queue : q.spring2.accounting.work",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.spring2.dead\",\r\n        \"x-dead-letter-routing-key\": \"dead-accounting\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.spring2.accounting.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Queue : q.spring2.marketing.work",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.spring2.dead\",\r\n        \"x-dead-letter-routing-key\": \"dead-marketing\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.spring2.marketing.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Queue : q.spring2.accounting.dead",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.spring2.accounting.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Queue : q.spring2.marketing.dead",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"queues",
+										"{{rabbitmqVirtualHost}}",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "queueName",
+											"value": "q.spring2.marketing.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : work 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring2.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring2.accounting.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : work 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring2.work"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring2.marketing.work"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : dead 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"dead-accounting\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring2.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring2.accounting.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bindings : dead 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"routing_key\": \"dead-marketing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+									"host": [
+										"{{rabbitmqUrl}}"
+									],
+									"path": [
+										"api",
+										"bindings",
+										"{{rabbitmqVirtualHost}}",
+										"e",
+										":exchangeName",
+										"q",
+										":queueName"
+									],
+									"variable": [
+										{
+											"key": "exchangeName",
+											"value": "x.spring2.dead"
+										},
+										{
+											"key": "queueName",
+											"value": "q.spring2.marketing.dead"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Queue : course.hello",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "course.hello"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : course.fixedrate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "course.fixedrate"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : course.employee",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "course.employee"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.hr.accounting",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.hr.accounting"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.hr.marketing",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.hr.marketing"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.hr",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.hr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.hr 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.hr"
+								},
+								{
+									"key": "queueName",
+									"value": "q.hr.accounting"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.hr 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.hr"
+								},
+								{
+									"key": "queueName",
+									"value": "q.hr.marketing"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.picture",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.picture.image",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.picture.image"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.picture.vector",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.picture.vector"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.picture 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture"
+								},
+								{
+									"key": "queueName",
+									"value": "q.picture.image"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.picture 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture"
+								},
+								{
+									"key": "queueName",
+									"value": "q.picture.image"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.picture 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"svg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture"
+								},
+								{
+									"key": "queueName",
+									"value": "q.picture.vector"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.picture2",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"topic\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.picture.filter",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.picture.filter"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.picture.log",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.picture.log"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.picture2 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"*.*.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture2"
+								},
+								{
+									"key": "queueName",
+									"value": "q.picture.image"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.picture2 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"#.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture2"
+								},
+								{
+									"key": "queueName",
+									"value": "q.picture.image"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.picture2 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"*.*.svg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture2"
+								},
+								{
+									"key": "queueName",
+									"value": "q.picture.vector"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.picture2 4",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"mobile.#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture2"
+								},
+								{
+									"key": "queueName",
+									"value": "q.picture.filter"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.picture2 5",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"*.large.svg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.picture2"
+								},
+								{
+									"key": "queueName",
+									"value": "q.picture.log"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.promotion",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"headers\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.promotion"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.promotion.discount",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.promotion.discount"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.promotion.free-delivery",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.promotion.free-delivery"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.promotion 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"arguments\": {\r\n        \"color\": \"white\",\r\n        \"material\": \"wood\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.promotion"
+								},
+								{
+									"key": "queueName",
+									"value": "q.promotion.discount"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.promotion 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"arguments\": {\r\n        \"color\": \"red\",\r\n        \"material\": \"steel\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.promotion"
+								},
+								{
+									"key": "queueName",
+									"value": "q.promotion.discount"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.promotion 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"arguments\": {\r\n        \"color\": \"red\",\r\n        \"material\": \"steel\",\r\n        \"x-match\": \"any\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.promotion"
+								},
+								{
+									"key": "queueName",
+									"value": "q.promotion.free-delivery"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.mypicture",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.mypicture"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.mypicture.dlx",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.mypicture.dlx"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.mypicture.image",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-dead-letter-exchange\": \"x.mypicture.dlx\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.mypicture.image"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.mypicture.dlx",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.mypicture.dlx"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.mypicture.image-ttl",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"arguments\": {\r\n        \"x-message-ttl\": 5000,\r\n        \"x-dead-letter-exchange\": \"x.mypicture.dlx\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.mypicture.image-ttl"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.mypicture 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.mypicture"
+								},
+								{
+									"key": "queueName",
+									"value": "q.mypicture.image"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.mypicture 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.mypicture"
+								},
+								{
+									"key": "queueName",
+									"value": "q.mypicture.image-ttl"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.mypicture.dlx 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.mypicture.dlx"
+								},
+								{
+									"key": "queueName",
+									"value": "q.mypicture.dlx"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.fanout",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.fanout"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.direct",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.direct"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.fanout.one",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.fanout.one"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.fanout.two",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.fanout.two"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.direct.one",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.direct.one"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.direct.two",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.direct.two"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.fanout 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.fanout"
+								},
+								{
+									"key": "queueName",
+									"value": "q.fanout.one"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.fanout 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.fanout"
+								},
+								{
+									"key": "queueName",
+									"value": "q.fanout.two"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.direct 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"one\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.direct"
+								},
+								{
+									"key": "queueName",
+									"value": "q.direct.one"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.direct 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"two\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.direct"
+								},
+								{
+									"key": "queueName",
+									"value": "q.direct.two"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.from-api",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.from-api"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.from-api",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.from-api"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.from-api",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.from-api"
+								},
+								{
+									"key": "queueName",
+									"value": "q.from-api"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.dummy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.dummy"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.dummy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.dummy"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.dummy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.dummy"
+								},
+								{
+									"key": "queueName",
+									"value": "q.dummy"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.transaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.transaction"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.transcation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.transaction"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.transaction"
+								},
+								{
+									"key": "queueName",
+									"value": "q.transaction"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.scheduler",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.scheduler"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.scheduler",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.scheduler"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.scheduler",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.scheduler"
+								},
+								{
+									"key": "queueName",
+									"value": "q.scheduler"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.invoice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.invoice"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.invoice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.invoice"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.invoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.invoice"
+								},
+								{
+									"key": "queueName",
+									"value": "q.invoice"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.single",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.single"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.single",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n       \"x-single-active-consumer\" : true\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.single"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.single",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.single"
+								},
+								{
+									"key": "queueName",
+									"value": "q.single"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.dummy2",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"direct\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.dummy2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.dummy2",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n       \"x-single-active-consumer\" : true\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.dummy2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.dummy2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.dummy2"
+								},
+								{
+									"key": "queueName",
+									"value": "q.dummy2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exchange : x.invoice.cancel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"fanout\",\r\n    \"auto_delete\": false,\r\n    \"durable\": true,\r\n    \"internal\": false,\r\n    \"arguments\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.invoice.cancel"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Queue : q.invoice.cancel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"auto_delete\": false,\r\n   \"durable\": true,\r\n   \"arguments\": {\r\n       \"x-single-active-consumer\" : true\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.invoice.cancel"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bindings : x.invoice.cancel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"routing_key\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/bindings/{{rabbitmqVirtualHost}}/e/:exchangeName/q/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{rabbitmqVirtualHost}}",
+								"e",
+								":exchangeName",
+								"q",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.invoice.cancel"
+								},
+								{
+									"key": "queueName",
+									"value": "q.invoice.cancel"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Others",
+			"item": [
+				{
+					"name": "Get all queues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific queue",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "course.hello"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purge specific queue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName/contents",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName",
+								"contents"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "course.hello"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete specific queue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName?if-empty=true&if-unused=true",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName"
+							],
+							"query": [
+								{
+									"key": "if-empty",
+									"value": "true",
+									"description": "prevent delete if the queue contains messages"
+								},
+								{
+									"key": "if-unused",
+									"value": "true",
+									"description": "prevent delete if the queue has consumer"
+								}
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "course.hellox"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish message to exchange",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"properties\": {},\r\n    \"routing_key\": \"my-routing-key\",\r\n    \"payload\": \"my-payload\",\r\n    \"payload_encoding\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/exchanges/{{rabbitmqVirtualHost}}/:exchangeName/publish",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{rabbitmqVirtualHost}}",
+								":exchangeName",
+								"publish"
+							],
+							"variable": [
+								{
+									"key": "exchangeName",
+									"value": "x.from-api"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consume message from queue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"count\": 5,\r\n    \"ackmode\": \"ack_requeue_false\",\r\n    \"encoding\": \"auto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/queues/{{rabbitmqVirtualHost}}/:queueName/get",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{rabbitmqVirtualHost}}",
+								":queueName",
+								"get"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "q.from-api"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all definitions (useful for backup)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/definitions/{{rabbitmqVirtualHost}}",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"definitions",
+								"{{rabbitmqVirtualHost}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create all definitions (useful for restore)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rabbitmqUrl}}/api/definitions/{{rabbitmqVirtualHost}}",
+							"host": [
+								"{{rabbitmqUrl}}"
+							],
+							"path": [
+								"api",
+								"definitions",
+								"{{rabbitmqVirtualHost}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "guest",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "guest",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "rabbitmqUrl",
+			"value": "http://localhost:15672"
+		},
+		{
+			"key": "rabbitmqVirtualHost",
+			"value": "%2f"
+		}
+	]
+}
